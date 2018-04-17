@@ -19,6 +19,11 @@ public class Credit2 {
             System.out.println("Задолженность: " + Math.round(debt));
             System.out.println("Обязательный платеж: " + Math.round(pay));
             debt = debt - pay;
+            if(debt < 150){
+                pay = debt;
+                System.out.println("Обязательный платеж: " + Math.round(pay));
+                break;
+            }
         }
     }
     //Методы
