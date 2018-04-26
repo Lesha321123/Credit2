@@ -20,7 +20,9 @@
         <children>
           <component id="9702a" class="javax.swing.JLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+                <preferred-size width="203" height="16"/>
+              </grid>
             </constraints>
             <properties>
               <horizontalAlignment value="0"/>
@@ -47,7 +49,7 @@
           <component id="c3164" class="javax.swing.JTextField" binding="textField1" default-binding="true">
             <constraints>
               <grid row="1" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="6" anchor="0" fill="0" indent="0" use-parent-layout="false">
-                <preferred-size width="216" height="24"/>
+                <preferred-size width="203" height="24"/>
               </grid>
             </constraints>
             <properties/>

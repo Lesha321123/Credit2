@@ -3,9 +3,13 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
+
 public class Credit2 {
 
     public static void main(String[] args) {
+        //Окно
+        new NewFrame();
+
         //Сегодняшняя дата
         Calendar data = Calendar.getInstance();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
