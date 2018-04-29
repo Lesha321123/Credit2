@@ -1,16 +1,15 @@
 import javafx.event.ActionEvent;
-
 import javax.swing.*;
 import java.awt.event.*;
 
 
 
-class NewFrame{
+class NewFrame implements ActionListener {
     NewFrame() {
         //название окна
         JFrame MyFrame = new JFrame("Кредит");
         //Размеры окна и координаты
-        MyFrame.setBounds(960, 540, 400, 200);
+        MyFrame.setBounds(960, 540, 350, 200);
         //Закрывать при нажатии
         MyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Отключение менеджера компоновки
@@ -18,10 +17,21 @@ class NewFrame{
         //Нельзя изменять размер окна
         MyFrame.setResizable(false);
 
-        //Создание кнопки "Подсчет"
-        JButton btn1 = new JButton("Подсчет");
+        //Создание кнопки "Закрыть"
+        JButton btn1 = new JButton("Закрыть");
         //Положение и размер кнопки
-        btn1.setBounds(190, 120, 180, 30);
+        btn1.setBounds(220, 120, 100, 30);
+        //Регистрация обработчика действий
+        btn1.addActionListener(this);
+
+        //Создание кнопки "Подсчет"
+        JButton btn2 = new JButton("Подсчет");
+        //Положение и размер кнопки
+        btn2.setBounds(20, 120, 100, 30);
+        //Регистрация обработчика действий
+        btn2.addActionListener(this);
+
+
 
         //Создание текстового поля "Сумма кредита"
         JTextField tf1 = new JTextField();
@@ -45,15 +55,18 @@ class NewFrame{
         //Координаты и размеры метки
         jl2.setBounds(20,0,150,30);
 
-
-
         MyFrame.add(btn1);
+        MyFrame.add(btn2);
         MyFrame.add(tf1);
         MyFrame.add(tf2);
         MyFrame.add(jl1);
         MyFrame.add(jl2);
         //Отображение окна
         MyFrame.setVisible(true);
+    }
+
+    public void actionPerformed(java.awt.event.ActionEvent AE){
+        System.exit(0);
     }
     }
 
