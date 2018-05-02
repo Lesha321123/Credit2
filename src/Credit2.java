@@ -10,6 +10,8 @@ public class Credit2 {
         //Окно
         new NewFrame();
         //Число месяцев
+
+
         int i = 0;
         //Сегодняшняя дата
         Calendar data = Calendar.getInstance();
@@ -43,7 +45,7 @@ public class Credit2 {
                 pay = debt;
                 System.out.println("Задолженность: " + Math.round(debt));
                 System.out.println("Обязательный платеж: " + Math.round(pay));
-                System.out.println("Количество месяцев: " + i);
+                System.out.println("Общее количество месяцев: " + i);
                 break;
             }
         }

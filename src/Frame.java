@@ -1,15 +1,12 @@
 import javafx.event.ActionEvent;
 import javax.swing.*;
 import java.awt.event.*;
-import java.util.ArrayList;
 
 
-class NewFrame implements ActionListener{
 
-    ArrayList<Double> list = new ArrayList<>();
+class NewFrame extends Credit2 implements ActionListener {
 
     NewFrame() {
-
         //название окна
         JFrame MyFrame = new JFrame("Кредит");
         //Размеры окна и координаты
@@ -70,6 +67,11 @@ class NewFrame implements ActionListener{
         //Координаты и размеры метки
         jl3.setBounds(190,70,150,30);
 
+        //Создание четвертой текстовой метки
+        JLabel jl4 = new JLabel();
+        //Координаты и размеры метки
+        jl4.setBounds(175,190,150,30);
+
         MyFrame.add(btn1);
         MyFrame.add(btn2);
         MyFrame.add(tf1);
@@ -78,17 +80,14 @@ class NewFrame implements ActionListener{
         MyFrame.add(jl1);
         MyFrame.add(jl2);
         MyFrame.add(jl3);
+        MyFrame.add(jl4);
         //Отображение окна
         MyFrame.setVisible(true);
 
-        btn2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent e) {
-            list.add(Double.parseDouble(tf1.getText().trim()));
-            list.add(Double.parseDouble(tf2.getText().trim()));
-            }
-        });
-    }
+
+        }
+
+
 
     public void actionPerformed(java.awt.event.ActionEvent ae) {
 
