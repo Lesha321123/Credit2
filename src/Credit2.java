@@ -9,7 +9,8 @@ public class Credit2 {
     public static void main(String[] args) {
         //Окно
         new NewFrame();
-
+        //Число месяцев
+        int i = 0;
         //Сегодняшняя дата
         Calendar data = Calendar.getInstance();
         SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
@@ -25,9 +26,11 @@ public class Credit2 {
         while (debt>150) {
             double pay = debt / 100 * mon; //Обязательный платеж
             if(pay > 150){
+                i++;
                 DayOfPayment(data);
                  }
             else {
+                i++;
                 pay = 150;
                 DayOfPayment(data);
             }
@@ -35,10 +38,12 @@ public class Credit2 {
             System.out.println("Обязательный платеж: " + Math.round(pay));
             debt = debt - pay;
             if(debt < 150){
+                i++;
                 DayOfPayment(data);
                 pay = debt;
                 System.out.println("Задолженность: " + Math.round(debt));
                 System.out.println("Обязательный платеж: " + Math.round(pay));
+                System.out.println("Количество месяцев: " + i);
                 break;
             }
         }

@@ -10,7 +10,7 @@ class NewFrame implements ActionListener {
         JFrame MyFrame = new JFrame("Кредит");
         //Размеры окна и координаты
         MyFrame.setBounds(960, 540, 350, 200);
-        //Закрывать при нажатии
+        //вся программа завершается при закрытии этого окна
         MyFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Отключение менеджера компоновки
         MyFrame.setLayout(null);
