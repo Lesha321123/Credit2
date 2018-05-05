@@ -3,6 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.SQLOutput;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -15,13 +16,13 @@ class NewFrame implements ActionListener, KeyListener {
     JButton btn2;
     JTextField tf1;
     JTextField tf2;
-    JTextField tf3;
     JLabel jl1;
     JLabel jl2;
     JLabel jl3;
-    JLabel jl4;
-    int debt;
-    int mon;
+    static double debt;
+    static double mon;
+
+
 
     NewFrame() {
 
@@ -64,11 +65,6 @@ class NewFrame implements ActionListener, KeyListener {
         tf2.setBounds(20, 100, 50, 30);
         tf2.addKeyListener(this);
 
-        //Создание текстового поля "Общее кол-во месяцев"
-        tf3 = new JTextField();
-        //Расположение поля
-        tf3.setBounds(190, 100, 50, 30);
-
 
         //Создание первой текстовой метки
         jl1 = new JLabel("Сумма кредита");
@@ -80,25 +76,19 @@ class NewFrame implements ActionListener, KeyListener {
         //Координаты и размеры метки
         jl2.setBounds(20, 70, 150, 30);
 
-        //Создание третьей текстовой метки
-        jl3 = new JLabel("Общее кол-во месяцев");
-        //Координаты и размеры метки
-        jl3.setBounds(190, 70, 150, 30);
 
-        //Создание четвертой текстовой метки
-        jl4 = new JLabel();
+        //Создание третьей текстовой метки
+        jl3 = new JLabel();
         //Координаты и размеры метки
-        jl4.setBounds(175, 190, 150, 30);
+        jl3.setBounds(175, 190, 150, 30);
 
         frame.add(btn1);
         frame.add(btn2);
         frame.add(tf1);
         frame.add(tf2);
-        frame.add(tf3);
         frame.add(jl1);
         frame.add(jl2);
         frame.add(jl3);
-        frame.add(jl4);
         //Отображение окна
         frame.setVisible(true);
         btn2.setEnabled(false);
@@ -127,9 +117,9 @@ class NewFrame implements ActionListener, KeyListener {
         String btName = ae.getActionCommand();
 
         if (btName.equalsIgnoreCase(btn2.getText())) {
-            debt = Integer.parseInt(tf1.getText());
-            mon = Integer.parseInt(tf2.getText());
-            System.out.println(debt + mon);
+            debt = Double.parseDouble(tf1.getText());
+            mon = Double.parseDouble(tf2.getText());
+            System.out.println(debt+ " " + mon);
         }
         else System.exit(0);
 
@@ -139,7 +129,7 @@ class NewFrame implements ActionListener, KeyListener {
 
 
     public class Credit2 {
-
+          static double mon;
         public static void main(String[] args) {
             //Окно
             new NewFrame();
@@ -150,15 +140,16 @@ class NewFrame implements ActionListener, KeyListener {
             SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
             String formatted = format1.format(data.getTime());
             System.out.println("Сегодня: " + formatted);
-            //Вводим сумму кредита
+            /*Вводим сумму кредита
             System.out.println("Введите сумму кредита");
             double debt = Enter();
             //Вводим процентную ставку
             System.out.println("Введите процентную ставку");
-            double mon = Monthly();
+            double mon = Monthly();*/
             //Считаем задолженность и обязательный платеж
-            while (debt > 150) {
-                double pay = debt / 100 * mon; //Обязательный платеж
+            mon = mon/12 + 5;
+            while (NewFrame.debt > 150) {
+                double pay = NewFrame.debt / 100 * mon; //Обязательный платеж
                 if (pay > 150) {
                     i++;
                     dayOfPayment(data);
@@ -167,18 +158,17 @@ class NewFrame implements ActionListener, KeyListener {
                     pay = 150;
                     dayOfPayment(data);
                 }
-                System.out.println("Задолженность: " + Math.round(debt));
+                System.out.println("Задолженность: " + Math.round(NewFrame.debt));
                 System.out.println("Обязательный платеж: " + Math.round(pay));
-                debt = debt - pay;
-                if (debt < 150) {
+                NewFrame.debt = NewFrame.debt - pay;
+                if (NewFrame.debt < 150) {
                     i++;
                     dayOfPayment(data);
-                    pay = debt;
-                    System.out.println("Задолженность: " + Math.round(debt));
+                    pay = NewFrame.debt;
+                    System.out.println("Задолженность: " + Math.round(NewFrame.debt));
                     System.out.println("Обязательный платеж: " + Math.round(pay));
                     System.out.println("Общее количество месяцев: " + i);
-                    break;
-                }
+                    break; }
             }
         }
 
