@@ -1,15 +1,19 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.sql.SQLOutput;
-import java.util.Scanner;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 
 class NewFrame implements ActionListener, KeyListener {
+
+    //День выплаты
+    public static void dayOfPayment(Calendar data) {
+        data.add(Calendar.DAY_OF_MONTH, 50);
+        SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
+        String formatted = format1.format(data.getTime());
+        System.out.println("Дата выплаты: " + formatted); }
 
     private JFrame frame;
     JButton btn1;
@@ -19,9 +23,16 @@ class NewFrame implements ActionListener, KeyListener {
     JLabel jl1;
     JLabel jl2;
     JLabel jl3;
-    static double debt;
-    static double mon;
+    double debt;
+    double mon;
+    double mon2;
+    double pay;
 
+    //Число месяцев
+    int i = 0;
+    Calendar data = Calendar.getInstance();
+    SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+    String formatted = format1.format(data.getTime());
 
 
     NewFrame() {
@@ -111,45 +122,16 @@ class NewFrame implements ActionListener, KeyListener {
 
     public void keyTyped(KeyEvent ke) {
     }
+    //Сегодняшняя дата
 
     public void actionPerformed(java.awt.event.ActionEvent ae) {
-
         String btName = ae.getActionCommand();
-
         if (btName.equalsIgnoreCase(btn2.getText())) {
             debt = Double.parseDouble(tf1.getText());
             mon = Double.parseDouble(tf2.getText());
-            System.out.println(debt+ " " + mon);
-        }
-        else System.exit(0);
-
-
-    }
-}
-
-
-    public class Credit2 {
-          static double mon;
-        public static void main(String[] args) {
-            //Окно
-            new NewFrame();
-            //Число месяцев
-            int i = 0;
-            //Сегодняшняя дата
-            Calendar data = Calendar.getInstance();
-            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
-            String formatted = format1.format(data.getTime());
-            System.out.println("Сегодня: " + formatted);
-            /*Вводим сумму кредита
-            System.out.println("Введите сумму кредита");
-            double debt = Enter();
-            //Вводим процентную ставку
-            System.out.println("Введите процентную ставку");
-            double mon = Monthly();*/
-            //Считаем задолженность и обязательный платеж
-            mon = mon/12 + 5;
-            while (NewFrame.debt > 150) {
-                double pay = NewFrame.debt / 100 * mon; //Обязательный платеж
+            mon2 = mon / 12 + 5;
+            while (debt > 150) {
+                pay = debt / 100 * mon2; //Обязательный платеж
                 if (pay > 150) {
                     i++;
                     dayOfPayment(data);
@@ -158,41 +140,26 @@ class NewFrame implements ActionListener, KeyListener {
                     pay = 150;
                     dayOfPayment(data);
                 }
-                System.out.println("Задолженность: " + Math.round(NewFrame.debt));
+                System.out.println("Задолженность: " + Math.round(debt));
                 System.out.println("Обязательный платеж: " + Math.round(pay));
-                NewFrame.debt = NewFrame.debt - pay;
-                if (NewFrame.debt < 150) {
+                debt = debt - pay;
+                if (debt < 150) {
                     i++;
                     dayOfPayment(data);
-                    pay = NewFrame.debt;
-                    System.out.println("Задолженность: " + Math.round(NewFrame.debt));
+                    pay = debt;
+                    System.out.println("Задолженность: " + Math.round(debt));
                     System.out.println("Обязательный платеж: " + Math.round(pay));
                     System.out.println("Общее количество месяцев: " + i);
                     break; }
             }
         }
+        if (btName.equalsIgnoreCase(btn1.getText())){
+            System.exit(0);}
+    }}
 
 
-        //Методы
+    public class Credit2 {
+        public static void main(String[] args) {
 
-        //Ввод данных
-        public static double Enter() {
-            Scanner sc = new Scanner(System.in);
-            return sc.nextDouble();
-        }
-
-        //Процентная ставка
-        public static double Monthly() {
-            Scanner sc2 = new Scanner(System.in);
-            double st = sc2.nextDouble();
-            return st / 12 + 5;
-        }
-
-        //День выплаты
-        public static void dayOfPayment(Calendar data) {
-            data.add(Calendar.DAY_OF_MONTH, 50);
-            SimpleDateFormat format1 = new SimpleDateFormat("dd-MM-yyyy");
-            String formatted = format1.format(data.getTime());
-            System.out.println("Дата выплаты: " + formatted);
-        }
-    }
+            //Окно
+            new NewFrame(); }}
