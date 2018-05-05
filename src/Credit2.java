@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -30,12 +31,13 @@ class NewFrame implements ActionListener, KeyListener {
 
     //Число месяцев
     int i = 0;
+    //Сегодняшняя дата
     Calendar data = Calendar.getInstance();
     SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
     String formatted = format1.format(data.getTime());
 
 
-    NewFrame() {
+    NewFrame(String msg) {
 
         //название окна
         frame = new JFrame("Кредит");
@@ -122,7 +124,7 @@ class NewFrame implements ActionListener, KeyListener {
 
     public void keyTyped(KeyEvent ke) {
     }
-    //Сегодняшняя дата
+
 
     public void actionPerformed(java.awt.event.ActionEvent ae) {
         String btName = ae.getActionCommand();
@@ -151,12 +153,39 @@ class NewFrame implements ActionListener, KeyListener {
                     System.out.println("Обязательный платеж: " + Math.round(pay));
                     System.out.println("Общее количество месяцев: " + i);
                     break; }
+                    MessageFrame.show(msg);
             }
         }
         if (btName.equalsIgnoreCase(btn1.getText())){
             System.exit(0);}
     }}
 
+    class MessageFrame implements ActionListener{
+        private JFrame frame;
+        JLabel message;
+        JButton button;
+        MessageFrame(String msg){
+            int widt=350, height=150;
+            frame=new JFrame("Результат");
+            frame.setBounds(400,300,widt,height);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setLayout(null);
+            message=new JLabel("<html>"+msg.replace("\n","<br>")+"<html>",JLabel.LEFT);
+            message.setBounds(widt/2,height/2,widt-20,height/2-10);
+            frame.add(message);
+            button=new JButton("ОК");
+            button.addActionListener(this);
+            frame.add(button);
+            frame.setResizable(false);
+            frame.setVisible(true); }
+
+       public void actionPerformed(ActionEvent ae){
+            System.exit(0); }
+
+        static void show(String txt){
+            new MessageFrame(txt);
+        }
+    }
 
     public class Credit2 {
         public static void main(String[] args) {
