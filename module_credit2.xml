@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_credit2" default="compile.module.credit2">
+  <dirname property="module.credit2.basedir" file="${ant.file.module_credit2}"/>
+  
+  <property name="module.jdk.home.credit2" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.credit2" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.credit2" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.credit2" value="-encoding UTF-8 -source 10 -target 10 ${compiler.args}"/>
+  
+  <property name="credit2.output.dir" value="${module.credit2.basedir}/out/production/Credit2"/>
+  <property name="credit2.testoutput.dir" value="${module.credit2.basedir}/out/test/Credit2"/>
+  
+  <path id="credit2.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="credit2.module.production.classpath">
+    <path refid="${module.jdk.classpath.credit2}"/>
+  </path>
+  
+  <path id="credit2.runtime.production.module.classpath">
+    <pathelement location="${credit2.output.dir}"/>
+  </path>
+  
+  <path id="credit2.module.classpath">
+    <path refid="${module.jdk.classpath.credit2}"/>
+    <pathelement location="${credit2.output.dir}"/>
+  </path>
+  
+  <path id="credit2.runtime.module.classpath">
+    <pathelement location="${credit2.testoutput.dir}"/>
+    <pathelement location="${credit2.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.credit2">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.credit2">
+    <patternset refid="excluded.from.module.credit2"/>
+  </patternset>
+  
+  <path id="credit2.module.sourcepath">
+    <dirset dir="${module.credit2.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.credit2" depends="compile.module.credit2.production,compile.module.credit2.tests" description="Compile module Credit2"/>
+  
+  <target name="compile.module.credit2.production" depends="register.custom.compilers" description="Compile module Credit2; production classes">
+    <mkdir dir="${credit2.output.dir}"/>
+    <javac2 destdir="${credit2.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.credit2}/javac">
+      <compilerarg line="${compiler.args.credit2}"/>
+      <bootclasspath refid="credit2.module.bootclasspath"/>
+      <classpath refid="credit2.module.production.classpath"/>
+      <src refid="credit2.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.credit2"/>
+    </javac2>
+    
+    <copy todir="${credit2.output.dir}">
+      <fileset dir="${module.credit2.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.credit2.tests" depends="register.custom.compilers,compile.module.credit2.production" description="compile module Credit2; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.credit2" description="cleanup module">
+    <delete dir="${credit2.output.dir}"/>
+    <delete dir="${credit2.testoutput.dir}"/>
+  </target>
+</project>

@@ -1,5 +1,4 @@
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -28,6 +27,9 @@ class NewFrame implements ActionListener, KeyListener {
     double mon;
     double mon2;
     double pay;
+    double pay1;
+    int width = 350;
+    int height = 200;
 
     //Число месяцев
     int i = 0;
@@ -37,12 +39,11 @@ class NewFrame implements ActionListener, KeyListener {
     String formatted = format1.format(data.getTime());
 
 
-    NewFrame(String msg) {
-
+    NewFrame() {
         //название окна
         frame = new JFrame("Кредит");
         //Размеры окна и координаты
-        frame.setBounds(960, 540, 350, 300);
+        frame.setBounds(960, 540, width, height);
         //вся программа завершается при закрытии этого окна
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Отключение менеджера компоновки
@@ -53,7 +54,7 @@ class NewFrame implements ActionListener, KeyListener {
         //Создание кнопки "Закрыть"
         btn1 = new JButton("Закрыть");
         //Положение и размер кнопки
-        btn1.setBounds(220, 220, 100, 30);
+        btn1.setBounds(220, height-80, 100, 30);
         //Регистрация обработчика действий
         btn1.addActionListener(this);
 
@@ -61,21 +62,21 @@ class NewFrame implements ActionListener, KeyListener {
         //Создание кнопки "Подсчет"
         btn2 = new JButton("Подсчет");
         //Положение и размер кнопки
-        btn2.setBounds(20, 220, 100, 30);
+        btn2.setBounds(20, height-80, 100, 30);
         //Регистрация обработчика действий
         btn2.addActionListener(this);
 
         //Создание текстового поля "Сумма кредита"
         tf1 = new JTextField();
         //Расположение поля
-        tf1.setBounds(20, 30, 50, 30);
+        tf1.setBounds(35, 30, 50, 30);
         tf1.addKeyListener(this);
 
 
         //Создание текстового поля "Процентная ставка"
         tf2 = new JTextField();
         //Расположение поля
-        tf2.setBounds(20, 100, 50, 30);
+        tf2.setBounds(width-140, 30, 50, 30);
         tf2.addKeyListener(this);
 
 
@@ -87,13 +88,13 @@ class NewFrame implements ActionListener, KeyListener {
         //Создание второй текстовой метки
         jl2 = new JLabel("Процентная ставка");
         //Координаты и размеры метки
-        jl2.setBounds(20, 70, 150, 30);
+        jl2.setBounds(width-170, 0, 150, 30);
 
 
         //Создание третьей текстовой метки
-        jl3 = new JLabel();
+        jl3 = new JLabel("Сегодня " + formatted);
         //Координаты и размеры метки
-        jl3.setBounds(175, 190, 150, 30);
+        jl3.setBounds(width/2-80, height/2-20, 150, 30);
 
         frame.add(btn1);
         frame.add(btn2);
@@ -132,8 +133,11 @@ class NewFrame implements ActionListener, KeyListener {
             debt = Double.parseDouble(tf1.getText());
             mon = Double.parseDouble(tf2.getText());
             mon2 = mon / 12 + 5;
+            pay1 = debt / 100 * mon2;
+                if(pay1 < 150)
+                    pay1 = 150;
             while (debt > 150) {
-                pay = debt / 100 * mon2; //Обязательный платеж
+                pay = debt / 100 * mon2;//Обязательный платеж
                 if (pay > 150) {
                     i++;
                     dayOfPayment(data);
@@ -153,42 +157,19 @@ class NewFrame implements ActionListener, KeyListener {
                     System.out.println("Обязательный платеж: " + Math.round(pay));
                     System.out.println("Общее количество месяцев: " + i);
                     break; }
-                    MessageFrame.show(msg);
+
             }
+            pay = pay + 150;
+            JOptionPane.showMessageDialog(null, "Общее кол-во месяцев: " + i + '\n'
+                    + "Первый платеж: " + Math.round(pay1) + '\n' + "Последний платеж: " + Math.round(pay));
         }
         if (btName.equalsIgnoreCase(btn1.getText())){
             System.exit(0);}
     }}
 
-    class MessageFrame implements ActionListener{
-        private JFrame frame;
-        JLabel message;
-        JButton button;
-        MessageFrame(String msg){
-            int widt=350, height=150;
-            frame=new JFrame("Результат");
-            frame.setBounds(400,300,widt,height);
-            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            frame.setLayout(null);
-            message=new JLabel("<html>"+msg.replace("\n","<br>")+"<html>",JLabel.LEFT);
-            message.setBounds(widt/2,height/2,widt-20,height/2-10);
-            frame.add(message);
-            button=new JButton("ОК");
-            button.addActionListener(this);
-            frame.add(button);
-            frame.setResizable(false);
-            frame.setVisible(true); }
 
-       public void actionPerformed(ActionEvent ae){
-            System.exit(0); }
+public class Credit2 {
+    public static void main(String[] args) {
 
-        static void show(String txt){
-            new MessageFrame(txt);
-        }
-    }
-
-    public class Credit2 {
-        public static void main(String[] args) {
-
-            //Окно
-            new NewFrame(); }}
+        //Окно
+        new NewFrame(); }}
